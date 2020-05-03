@@ -57,7 +57,9 @@ def get_filters():
     return city, month, weekday
 
 def show_raw_data(df):
-    """ Displays first 5 rows of raw dataframe on user request """
+    """ 
+    Displays first 5 rows of raw dataframe on user request 
+    """
 
     while True:
         do_preview = input('\nWould you like to preview the first five rows of this table? (y/n): ').lower() == 'y'
@@ -109,7 +111,7 @@ def load_data(city, month, day):
 
     return df
 
-def check_column_exists(df, col_name):
+def column_exists(df, col_name):
     """ 
     Checks that col_name is a valid column in df. Displays an error message if not.
 
@@ -133,7 +135,7 @@ def display_popular_stats(df, col_name, col_display_name, display_lookup_list = 
     """
 
     # check first that this column exists in the dataframe
-    if not check_column_exists(df, col_name):
+    if not column_exists(df, col_name):
         return
 
     popular_element = df[col_name].mode()[0]
@@ -167,7 +169,9 @@ def print_run_time(start_time):
     print('-'*40)
 
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
+    """
+    Displays statistics on the most frequent times of travel.
+    """
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
@@ -185,7 +189,9 @@ def time_stats(df):
 
 
 def station_stats(df):
-    """Displays statistics on the most popular stations and trip."""
+    """
+    Displays statistics on the most popular stations and trip.
+    """
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
@@ -197,7 +203,7 @@ def station_stats(df):
     display_popular_stats(df, 'End Station', 'Trip Ending Station')
 
     # display most frequent combination of start station and end station trips
-    if check_column_exists(df, 'Start Station') and check_column_exists(df, 'End Station'):
+    if column_exists(df, 'Start Station') and column_exists(df, 'End Station'):
         popular_start_end = df.groupby(['Start Station', 'End Station'])['End Station'].count().sort_values(ascending=False)
         total_trips = df['End Station'].notnull().sum()
 
@@ -210,12 +216,14 @@ def station_stats(df):
     print_run_time(start_time)
 
 def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
+    """
+    Displays statistics on the total and average trip duration.
+    """
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
     
-    if check_column_exists(df, 'Trip Duration'):
+    if column_exists(df, 'Trip Duration'):
         # display total travel time
         total_duration = df['Trip Duration'].sum()
         print('Total Duration of all trips (sec): {}\n'.format(total_duration))
@@ -228,25 +236,27 @@ def trip_duration_stats(df):
 
 
 def user_stats(df):
-    """Displays statistics on bikeshare users."""
+    """
+    Displays statistics on bikeshare users.
+    """
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
     # Display counts of user types
-    if check_column_exists(df, 'User Type'):
+    if column_exists(df, 'User Type'):
         user_types = df['User Type'].value_counts().to_frame()
         user_types['Percent'] = df['User Type'].value_counts(normalize = True).to_frame()
         print(user_types)
         print()
 
     # Display counts of gender
-    if check_column_exists(df, 'Gender'):
+    if column_exists(df, 'Gender'):
         genders = df['Gender'].value_counts().to_frame()
         genders['Percent'] = df['Gender'].value_counts(normalize = True).to_frame()
         print(genders)
 
-    if check_column_exists(df, 'Birth Year'):
+    if column_exists(df, 'Birth Year'):
         # Display earliest, most recent, and most common year of birth
         oldest_user_birth_year = int(df['Birth Year'].min())
         print('\nBirth year of Oldest User: {}\n'.format(oldest_user_birth_year))
