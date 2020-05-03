@@ -2,7 +2,7 @@
 May 2, 2020
 
 ### Project Title
-bikeshare.py
+Bikeshare Database Analysis
 
 ### Description
 Udacity project #2. Program performs various statistical analyses on bikeshare databases for different cities.
