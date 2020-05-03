@@ -57,7 +57,7 @@ def get_filters():
     return city, month, weekday
 
 def show_raw_data(df):
-    """ displays first 5 rows of raw dataframe on user request """
+    """ Displays first 5 rows of raw dataframe on user request """
 
     while True:
         do_preview = input('\nWould you like to preview the first five rows of this table? (y/n): ').lower() == 'y'
@@ -260,6 +260,11 @@ def user_stats(df):
     print_run_time(start_time)
 
 def main():
+    """
+    Main program loop: loads data, displays stats as requested by user, until user
+    decides to quit.
+    """
+
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
